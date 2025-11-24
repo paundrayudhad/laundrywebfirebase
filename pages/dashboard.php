@@ -26,6 +26,7 @@ foreach ($modules as $key => $label) {
         'key' => $key
     ];
 }
+require_once __DIR__ . '/../partials/header.php';
 ?>
 <div class="row">
     <?php foreach ($stats as $stat): ?>
@@ -49,3 +50,6 @@ foreach ($modules as $key => $label) {
         <p>Aplikasi ini mengelola entity sesuai rancangan database yang meliputi customer, jenis laundry, outlet, karyawan, order, pembayaran hingga antrian. Semua data disimpan pada Firebase Realtime Database dan dapat diakses melalui menu di sebelah kiri.</p>
     </div>
 </div>
+<?php
+require_once __DIR__ . '/../partials/footer.php';
+?>

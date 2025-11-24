@@ -4,7 +4,7 @@ return [
         'name' => 'Laundry Firebase'
     ],
     'firebase' => [
-        'url' => getenv('FIREBASE_DB_URL') ?: 'https://your-project-id.firebaseio.com',
+        'url' => 'https://laundry-57c23-default-rtdb.asia-southeast1.firebasedatabase.app',
         'secret' => getenv('FIREBASE_DB_SECRET') ?: ''
     ]
 ];

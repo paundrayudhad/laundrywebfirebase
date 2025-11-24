@@ -48,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = $result['error'] ?? 'Gagal menyimpan data';
     }
 }
+require_once __DIR__ . '/../partials/header.php';
 ?>
 <div class="card card-primary">
     <div class="card-header"><h3 class="card-title">Tambah Antrian</h3></div>
@@ -117,3 +118,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </table>
     </div>
 </div>
+<?php
+require_once __DIR__ . '/../partials/footer.php';
+?>

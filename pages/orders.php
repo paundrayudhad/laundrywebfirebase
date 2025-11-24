@@ -98,6 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $data = firebase_get('orders');
 $orders = $data['success'] && is_array($data['data']) ? $data['data'] : [];
+require_once __DIR__ . '/../partials/header.php';
 ?>
 <div class="card card-primary">
     <div class="card-header"><h3 class="card-title">Buat Order</h3></div>
@@ -207,3 +208,6 @@ $orders = $data['success'] && is_array($data['data']) ? $data['data'] : [];
         </table>
     </div>
 </div>
+<?php
+require_once __DIR__ . '/../partials/footer.php';
+?>

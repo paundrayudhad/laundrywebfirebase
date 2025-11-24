@@ -20,7 +20,6 @@ if (!current_user() && $page !== 'login') {
     exit;
 }
 
-include __DIR__ . '/partials/header.php';
 
 if (isset($allowedPages[$page])) {
     include __DIR__ . '/' . $allowedPages[$page];
@@ -28,4 +27,3 @@ if (isset($allowedPages[$page])) {
     echo '<div class="alert alert-warning">Halaman tidak ditemukan.</div>';
 }
 
-include __DIR__ . '/partials/footer.php';

@@ -43,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $data = firebase_get('customers');
 $customers = $data['success'] && is_array($data['data']) ? $data['data'] : [];
+require_once __DIR__ . '/../partials/header.php';
 ?>
 <div class="row">
     <div class="col-md-4">
@@ -114,3 +115,6 @@ $customers = $data['success'] && is_array($data['data']) ? $data['data'] : [];
         </div>
     </div>
 </div>
+<?php
+require_once __DIR__ . '/../partials/footer.php';
+?>
