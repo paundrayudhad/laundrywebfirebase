@@ -34,6 +34,30 @@ function get_flashes(): array
     return $messages;
 }
 
+function current_user(): ?array
+{
+    return $_SESSION['user'] ?? null;
+}
+
+function require_login(): void
+{
+    if (!current_user()) {
+        header('Location: ?page=login');
+        exit;
+    }
+}
+
+function authorize(array $roles): void
+{
+    $user = current_user();
+
+    if (!$user || !in_array($user['role'] ?? '', $roles, true)) {
+        set_flash('Anda tidak memiliki akses ke halaman ini.', 'danger');
+        header('Location: ?page=dashboard');
+        exit;
+    }
+}
+
 function sanitize(string $value): string
 {
     return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');

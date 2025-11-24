@@ -10,8 +10,15 @@ $allowedPages = [
     'employees' => 'pages/employees.php',
     'orders' => 'pages/orders.php',
     'payments' => 'pages/payments.php',
-    'queues' => 'pages/queues.php'
+    'queues' => 'pages/queues.php',
+    'login' => 'pages/login.php',
+    'logout' => 'pages/logout.php'
 ];
+
+if (!current_user() && $page !== 'login') {
+    header('Location: ?page=login');
+    exit;
+}
 
 include __DIR__ . '/partials/header.php';
 

@@ -1,4 +1,9 @@
 <?php
+require_once __DIR__ . '/../includes/bootstrap.php';
+
+require_login();
+authorize(['admin', 'kasir']);
+
 $orderData = firebase_get('orders');
 $orderOptions = [];
 if ($orderData['success'] && is_array($orderData['data'])) {

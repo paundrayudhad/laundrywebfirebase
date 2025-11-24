@@ -1,4 +1,8 @@
 <?php
+require_once __DIR__ . '/../includes/bootstrap.php';
+
+require_login();
+
 $modules = [
     'customers' => 'Customers',
     'laundry_types' => 'Laundry Types',

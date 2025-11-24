@@ -12,6 +12,15 @@ $menuItems = [
     'queues' => 'Queue'
 ];
 $currentPage = $_GET['page'] ?? 'dashboard';
+$user = current_user();
+
+$roleMenus = [
+    'admin' => array_keys($menuItems),
+    'kasir' => ['dashboard', 'customers', 'orders', 'payments', 'queues'],
+    'staff' => ['dashboard', 'orders', 'queues']
+];
+
+$visibleMenus = $roleMenus[$user['role'] ?? 'admin'] ?? array_keys($menuItems);
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -43,6 +52,16 @@ $currentPage = $_GET['page'] ?? 'dashboard';
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
+            <?php if ($user): ?>
+                <li class="nav-item d-flex align-items-center mr-2">
+                    <span class="nav-link">Halo, <?= sanitize($user['name'] ?? ''); ?> (<?= sanitize($user['role'] ?? ''); ?>)</span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="?page=logout" title="Keluar">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                </li>
+            <?php endif; ?>
             <li class="nav-item">
                 <span class="nav-link font-weight-bold"><?= sanitize(app_config('app')['name'] ?? 'Laundry'); ?></span>
             </li>
@@ -57,6 +76,7 @@ $currentPage = $_GET['page'] ?? 'dashboard';
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
                     <?php foreach ($menuItems as $page => $label): ?>
+                        <?php if (!in_array($page, $visibleMenus, true)) { continue; } ?>
                         <li class="nav-item">
                             <a href="?page=<?= $page; ?>" class="nav-link <?= $currentPage === $page ? 'active' : ''; ?>">
                                 <i class="nav-icon fas fa-circle"></i>

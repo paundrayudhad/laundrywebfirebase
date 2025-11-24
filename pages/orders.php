@@ -1,4 +1,9 @@
 <?php
+require_once __DIR__ . '/../includes/bootstrap.php';
+
+require_login();
+authorize(['admin', 'kasir', 'staff']);
+
 $customersData = firebase_get('customers');
 $customerOptions = [];
 if ($customersData['success'] && is_array($customersData['data'])) {

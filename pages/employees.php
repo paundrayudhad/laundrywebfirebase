@@ -1,4 +1,9 @@
 <?php
+require_once __DIR__ . '/../includes/bootstrap.php';
+
+require_login();
+authorize(['admin']);
+
 $outletData = firebase_get('outlets');
 $outletOptions = [];
 if ($outletData['success'] && is_array($outletData['data'])) {
@@ -14,9 +19,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $phone = trim($_POST['phone'] ?? '');
     $role = trim($_POST['role'] ?? '');
     $outletId = $_POST['outlet_id'] ?? '';
+    $password = $_POST['password'] ?? '';
 
     if ($name === '') {
         $errors[] = 'Nama karyawan wajib diisi';
+    }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = 'Email tidak valid';
+    }
+
+    if (strlen($password) < 6) {
+        $errors[] = 'Password minimal 6 karakter';
     }
 
     if ($outletId === '' || !isset($outletOptions[$outletId])) {
@@ -30,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'email' => $email,
             'phone' => $phone,
             'role' => $role,
+            'password' => password_hash($password, PASSWORD_DEFAULT),
             'outlet_id' => $outletId,
             'created_at' => $timestamp,
             'updated_at' => $timestamp
@@ -69,7 +84,7 @@ $employees = $data['success'] && is_array($data['data']) ? $data['data'] : [];
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" name="email" class="form-control">
+                        <input type="email" name="email" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Telepon</label>
@@ -77,7 +92,16 @@ $employees = $data['success'] && is_array($data['data']) ? $data['data'] : [];
                     </div>
                     <div class="form-group">
                         <label>Role</label>
-                        <input type="text" name="role" class="form-control">
+                        <select name="role" class="form-control" required>
+                            <option value="">-- Pilih Role --</option>
+                            <option value="admin">Admin</option>
+                            <option value="kasir">Kasir</option>
+                            <option value="staff">Staff</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" name="password" class="form-control" minlength="6" required>
                     </div>
                     <div class="form-group">
                         <label>Outlet</label>
@@ -101,6 +125,7 @@ $employees = $data['success'] && is_array($data['data']) ? $data['data'] : [];
                     <thead>
                         <tr>
                             <th>Nama</th>
+                            <th>Email</th>
                             <th>Role</th>
                             <th>Outlet</th>
                             <th>Telepon</th>
@@ -108,11 +133,12 @@ $employees = $data['success'] && is_array($data['data']) ? $data['data'] : [];
                     </thead>
                     <tbody>
                         <?php if (empty($employees)): ?>
-                            <tr><td colspan="4" class="text-center">Belum ada data</td></tr>
+                            <tr><td colspan="5" class="text-center">Belum ada data</td></tr>
                         <?php else: ?>
                             <?php foreach ($employees as $employee): ?>
                                 <tr>
                                     <td><?= sanitize($employee['name'] ?? '-'); ?></td>
+                                    <td><?= sanitize($employee['email'] ?? '-'); ?></td>
                                     <td><?= sanitize($employee['role'] ?? '-'); ?></td>
                                     <td><?= sanitize($outletOptions[$employee['outlet_id']] ?? $employee['outlet_id'] ?? '-'); ?></td>
                                     <td><?= sanitize($employee['phone'] ?? '-'); ?></td>

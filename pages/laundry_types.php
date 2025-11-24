@@ -1,4 +1,9 @@
 <?php
+require_once __DIR__ . '/../includes/bootstrap.php';
+
+require_login();
+authorize(['admin']);
+
 $errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
