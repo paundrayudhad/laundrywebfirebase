@@ -29,7 +29,7 @@ $visibleMenus = $roleMenus[$user['role'] ?? 'admin'] ?? array_keys($menuItems);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= sanitize(app_config('app')['name'] ?? 'Laundry App'); ?></title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,64 +38,54 @@ $visibleMenus = $roleMenus[$user['role'] ?? 'admin'] ?? array_keys($menuItems);
         body {
             font-family: 'Roboto', sans-serif;
         }
-        .content-wrapper {
-            min-height: calc(100vh - 57px);
+        .sidebar-link.active {
+            font-weight: 600;
+            color: #0d6efd;
         }
     </style>
 </head>
-<body class="hold-transition sidebar-mini">
-<div class="wrapper">
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-            </li>
-        </ul>
-        <ul class="navbar-nav ml-auto">
-            <?php if ($user): ?>
-                <li class="nav-item d-flex align-items-center mr-2">
-                    <span class="nav-link">Halo, <?= sanitize($user['name'] ?? ''); ?> (<?= sanitize($user['role'] ?? ''); ?>)</span>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="?page=logout" title="Keluar">
-                        <i class="fas fa-sign-out-alt"></i>
-                    </a>
-                </li>
-            <?php endif; ?>
-            <li class="nav-item">
-                <span class="nav-link font-weight-bold"><?= sanitize(app_config('app')['name'] ?? 'Laundry'); ?></span>
-            </li>
-        </ul>
-    </nav>
-
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <a href="?page=dashboard" class="brand-link text-center">
-            <span class="brand-text font-weight-light">Laundry Firebase</span>
-        </a>
-        <div class="sidebar">
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
-                    <?php foreach ($menuItems as $page => $label): ?>
-                        <?php if (!in_array($page, $visibleMenus, true)) { continue; } ?>
+<body class="bg-light">
+<div class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="?page=dashboard">Laundry Firebase</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto align-items-center">
+                    <?php if ($user): ?>
+                        <li class="nav-item mr-2 text-muted">
+                            Halo, <?= sanitize($user['name'] ?? ''); ?> (<?= sanitize($user['role'] ?? ''); ?>)
+                        </li>
                         <li class="nav-item">
-                            <a href="?page=<?= $page; ?>" class="nav-link <?= $currentPage === $page ? 'active' : ''; ?>">
-                                <i class="nav-icon fas fa-circle"></i>
-                                <p><?= $label; ?></p>
+                            <a class="btn btn-outline-secondary btn-sm" href="?page=logout" title="Keluar">
+                                <i class="fas fa-sign-out-alt mr-1"></i> Keluar
                             </a>
                         </li>
-                    <?php endforeach; ?>
+                    <?php endif; ?>
                 </ul>
-            </nav>
+            </div>
         </div>
-    </aside>
+    </nav>
 
-    <div class="content-wrapper">
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0"><?= $menuItems[$currentPage] ?? 'Dashboard'; ?></h1>
-                    </div>
+    <div class="container-fluid flex-grow-1">
+        <div class="row h-100">
+            <aside class="col-md-3 col-lg-2 bg-white border-right py-4">
+                <div class="list-group list-group-flush">
+                    <?php foreach ($menuItems as $page => $label): ?>
+                        <?php if (!in_array($page, $visibleMenus, true)) { continue; } ?>
+                        <a href="?page=<?= $page; ?>" class="list-group-item list-group-item-action sidebar-link <?= $currentPage === $page ? 'active' : ''; ?>">
+                            <i class="fas fa-circle mr-2 small"></i><?= $label; ?>
+                        </a>
+                    <?php endforeach; ?>
+                </div>
+            </aside>
+
+            <main class="col-md-9 col-lg-10 py-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h1 class="h4 mb-0"><?= $menuItems[$currentPage] ?? 'Dashboard'; ?></h1>
+                    <span class="text-muted font-weight-bold"><?= sanitize(app_config('app')['name'] ?? 'Laundry'); ?></span>
                 </div>
                 <?php if (!empty($flashes)): ?>
                     <?php foreach ($flashes as $flash): ?>
@@ -104,7 +94,3 @@ $visibleMenus = $roleMenus[$user['role'] ?? 'admin'] ?? array_keys($menuItems);
                         </div>
                     <?php endforeach; ?>
                 <?php endif; ?>
-            </div>
-        </div>
-        <section class="content">
-            <div class="container-fluid">

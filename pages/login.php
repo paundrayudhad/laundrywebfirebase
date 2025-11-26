@@ -42,51 +42,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - <?= sanitize(app_config('app')['name'] ?? 'Laundry App'); ?></title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
 </head>
-<body class="hold-transition login-page">
-<div class="login-box">
-    <div class="login-logo">
-        <b>Laundry</b>Firebase
-    </div>
-    <div class="card">
-        <div class="card-body login-card-body">
-            <p class="login-box-msg">Masuk untuk memulai sesi Anda</p>
-            <?php if ($error): ?>
-                <div class="alert alert-danger"><?= sanitize($error); ?></div>
-            <?php endif; ?>
-            <?php foreach (get_flashes() as $flash): ?>
-                <div class="alert alert-<?= sanitize($flash['type']); ?>"><?= sanitize($flash['message']); ?></div>
-            <?php endforeach; ?>
-            <form method="POST">
-                <div class="input-group mb-3">
-                    <input type="email" class="form-control" name="email" placeholder="Email" required>
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-envelope"></span>
+<body class="bg-light">
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="text-center mb-4">
+                <h1 class="h3 mb-0 font-weight-bold">Laundry Firebase</h1>
+                <p class="text-muted">Silakan masuk untuk melanjutkan</p>
+            </div>
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <?php if ($error): ?>
+                        <div class="alert alert-danger"><?= sanitize($error); ?></div>
+                    <?php endif; ?>
+                    <?php foreach (get_flashes() as $flash): ?>
+                        <div class="alert alert-<?= sanitize($flash['type']); ?>"><?= sanitize($flash['message']); ?></div>
+                    <?php endforeach; ?>
+                    <form method="POST">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                </div>
+                                <input type="email" id="email" class="form-control" name="email" placeholder="Email" required>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="input-group mb-3">
-                    <input type="password" class="form-control" name="password" placeholder="Password" required>
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                </div>
+                                <input type="password" id="password" class="form-control" name="password" placeholder="Password" required>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
                         <button type="submit" class="btn btn-primary btn-block">Masuk</button>
-                    </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
 </body>
 </html>
