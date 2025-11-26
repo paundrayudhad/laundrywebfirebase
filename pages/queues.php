@@ -50,8 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 require_once __DIR__ . '/../partials/header.php';
 ?>
-<div class="card card-primary">
-    <div class="card-header"><h3 class="card-title">Tambah Antrian</h3></div>
+<div class="card border-primary shadow-sm">
+    <div class="card-header bg-primary text-white"><h3 class="card-title mb-0">Tambah Antrian</h3></div>
     <form method="POST">
         <div class="card-body">
             <?php if (!empty($errors)): ?>
@@ -85,15 +85,15 @@ require_once __DIR__ . '/../partials/header.php';
                 </div>
             </div>
         </div>
-        <div class="card-footer text-right">
+        <div class="card-footer text-right bg-white">
             <button class="btn btn-primary">Simpan</button>
         </div>
     </form>
 </div>
 
-<div class="card mt-4">
-    <div class="card-header"><h3 class="card-title">Daftar Antrian</h3></div>
-    <div class="card-body table-responsive p-0">
+<div class="card mt-4 shadow-sm">
+    <div class="card-header bg-white"><h3 class="card-title mb-0">Daftar Antrian</h3></div>
+    <div class="card-body table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr>

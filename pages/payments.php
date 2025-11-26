@@ -57,8 +57,8 @@ $data = firebase_get('payments');
 $payments = $data['success'] && is_array($data['data']) ? $data['data'] : [];
 require_once __DIR__ . '/../partials/header.php';
 ?>
-<div class="card card-primary">
-    <div class="card-header"><h3 class="card-title">Tambah Pembayaran</h3></div>
+<div class="card border-primary shadow-sm">
+    <div class="card-header bg-primary text-white"><h3 class="card-title mb-0">Tambah Pembayaran</h3></div>
     <form method="POST">
         <div class="card-body">
             <?php if (!empty($errors)): ?>
@@ -100,15 +100,15 @@ require_once __DIR__ . '/../partials/header.php';
                 <textarea name="notes" class="form-control" rows="2"></textarea>
             </div>
         </div>
-        <div class="card-footer text-right">
+        <div class="card-footer text-right bg-white">
             <button class="btn btn-primary">Simpan</button>
         </div>
     </form>
 </div>
 
-<div class="card mt-4">
-    <div class="card-header"><h3 class="card-title">Riwayat Pembayaran</h3></div>
-    <div class="card-body table-responsive p-0">
+<div class="card mt-4 shadow-sm">
+    <div class="card-header bg-white"><h3 class="card-title mb-0">Riwayat Pembayaran</h3></div>
+    <div class="card-body table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr>

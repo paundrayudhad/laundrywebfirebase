@@ -80,8 +80,8 @@ require_once __DIR__ . '/../partials/header.php';
 ?>
 <div class="row">
     <div class="col-md-4">
-        <div class="card card-primary">
-            <div class="card-header"><h3 class="card-title"><?= $editingId !== '' ? 'Edit Outlet' : 'Tambah Outlet'; ?></h3></div>
+        <div class="card border-primary shadow-sm">
+            <div class="card-header bg-primary text-white"><h3 class="card-title mb-0"><?= $editingId !== '' ? 'Edit Outlet' : 'Tambah Outlet'; ?></h3></div>
             <form method="POST">
                 <div class="card-body">
                     <?php if (!empty($errors)): ?>
@@ -109,7 +109,7 @@ require_once __DIR__ . '/../partials/header.php';
                         <textarea name="address" class="form-control" rows="3"><?= sanitize($formData['address'] ?? ''); ?></textarea>
                     </div>
                 </div>
-                <div class="card-footer text-right">
+                <div class="card-footer text-right bg-white">
                     <button class="btn btn-primary">Simpan</button>
                     <?php if ($editingId !== ''): ?>
                         <a href="?page=outlets" class="btn btn-secondary ml-2">Batal</a>
@@ -119,9 +119,9 @@ require_once __DIR__ . '/../partials/header.php';
         </div>
     </div>
     <div class="col-md-8">
-        <div class="card">
-            <div class="card-header"><h3 class="card-title">Daftar Outlet</h3></div>
-            <div class="card-body table-responsive p-0">
+        <div class="card shadow-sm">
+            <div class="card-header bg-white"><h3 class="card-title mb-0">Daftar Outlet</h3></div>
+            <div class="card-body table-responsive">
                 <table class="table table-striped">
                     <thead>
                         <tr>
